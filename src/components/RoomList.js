@@ -23,18 +23,14 @@ class RoomList extends Component {
   componentWillUnmount(){
 
   }
-  createRoom(e){
-    const newRoomName = e.target.value;
-    this.roomsRef.push({
-      name: newRoomName
-    });
+  handleChange(e){
+    this.setState({newRoomName: e.target.value});
   }
-  // handleSubmit(e){
-  //   e.preventDefault();
-  //   if (!this.state.newRoomName) { return };
-  //   // adds newTodo to the end of the todos array, and resets newTodoDescription input to blank
-  //   this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: "" });
-  // }
+  createRoom(e){
+    e.preventDefault();
+    const newName = this.state.newRoomName;
+    //const newRoom = { name: this.state.newRoomName }
+    this.roomsRef.push({ name: newName });
   }
   render() {
     return (
@@ -42,7 +38,7 @@ class RoomList extends Component {
       <h2>Available Chat Rooms</h2>
         {this.state.rooms.map( (room) => <div className="room-data">{room.name}</div>)}
         <form onSubmit={(e) => this.createRoom(e)} className="room-create-form">
-          <input type="text" className="room-create-text" />
+          <input type="text" className="room-create-text" value={this.state.newRoomName} onChange={(e) => this.handleChange(e)} />
           <input type="submit" className="room-create-submit" />
         </form>
 
