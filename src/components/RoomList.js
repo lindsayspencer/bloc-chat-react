@@ -13,7 +13,6 @@ class RoomList extends Component {
   // can be used to iniitiate requests, like to our db
   componentDidMount(){
     this.roomsRef.on('child_added', snapshot => {
-      console.log(snapshot);
       const room = snapshot.val();
       room.key = snapshot.key;
       // concat() is used instead of push() so as not to directly alter state
@@ -32,11 +31,19 @@ class RoomList extends Component {
     //const newRoom = { name: this.state.newRoomName }
     this.roomsRef.push({ name: newName });
   }
+  // highlightCurrentRoom(room){
+  //   if(room === this.props.activeRoom){
+  //
+  //   }
+  // }
   render() {
     return (
       <section className="room-list">
       <h2>Available Chat Rooms</h2>
-        {this.state.rooms.map( (room) => <div className="room-data">{room.name}</div>)}
+        {this.state.rooms.map( (room) =>
+          <div className="room-data" key={room.key} onClick={() => this.props.changeRoom(room)}>
+            {room.name}
+            </div>)}
         <form onSubmit={(e) => this.createRoom(e)} className="room-create-form">
           <input type="text" className="room-create-text" value={this.state.newRoomName} onChange={(e) => this.handleChange(e)} />
           <input type="submit" className="room-create-submit" />
