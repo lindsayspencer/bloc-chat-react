@@ -28,21 +28,16 @@ class RoomList extends Component {
   createRoom(e){
     e.preventDefault();
     const newName = this.state.newRoomName;
-    //const newRoom = { name: this.state.newRoomName }
     this.roomsRef.push({ name: newName });
+    this.setState({ newRoomName: ""});
   }
-  // highlightCurrentRoom(room){
-  //   if(room === this.props.activeRoom){
-  //
-  //   }
-  // }
   render() {
     return (
       <section className="room-list">
       <h2>Available Chat Rooms</h2>
         {this.state.rooms.map( (room) =>
           <div className="room-data" key={room.key} onClick={() => this.props.changeRoom(room)}>
-            {room.name}
+            <span style={room.key===this.props.activeRoom ? {textDecoration:"underline"} : {textDecoration:"none"}}>{room.name}</span>
             </div>)}
         <form onSubmit={(e) => this.createRoom(e)} className="room-create-form">
           <input type="text" className="room-create-text" value={this.state.newRoomName} onChange={(e) => this.handleChange(e)} />

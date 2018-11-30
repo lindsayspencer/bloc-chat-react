@@ -17,7 +17,6 @@ class MessageList extends Component {
       this.setState({ messages: this.state.messages.concat(message) });
     });
   }
-  // .equalTo(this.props.activeRoom)
   render(){
     return(
       <section className="message-list">

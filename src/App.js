@@ -19,13 +19,13 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      activeRoom: ""
+      activeRoom: "",
     }
   }
   changeRoom(room){
     console.log(room.key);
     this.setState({ activeRoom: room.key });
-  }
+    }
   render() {
     return (
       <div className="App">
