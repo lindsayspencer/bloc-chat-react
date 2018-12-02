@@ -40,7 +40,8 @@ class RoomList extends Component {
             <span style={room.key===this.props.activeRoom ? {textDecoration:"underline"} : {textDecoration:"none"}}>{room.name}</span>
             </div>)}
         <form onSubmit={(e) => this.createRoom(e)} className="room-create-form">
-          <input type="text" className="room-create-text" value={this.state.newRoomName} onChange={(e) => this.handleChange(e)} />
+          <label for="room-create-text">New Chat Room</label>
+          <input type="text" className="room-create-text" name="room-create-text" value={this.state.newRoomName} onChange={(e) => this.handleChange(e)} />
           <input type="submit" className="room-create-submit" />
         </form>
 
