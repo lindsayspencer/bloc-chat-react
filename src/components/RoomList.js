@@ -40,7 +40,6 @@ class RoomList extends Component {
     this.setState({rooms: newList});
   }
   editRoom(room){
-    //const edited = room.key;
     const index = this.state.rooms.indexOf(room);
     const editedRoom = this.state.rooms[index];
     // to test that I found the correct index
@@ -49,6 +48,7 @@ class RoomList extends Component {
     console.log(this.state.rooms[index]);
     const editedName = prompt("New Chat Room Name: ");
     this.roomsRef.child(room.key).update({name: editedName});
+    // THE LINE BELOW IS WRONG...
     this.setState({ rooms[index].name: editedName});
   }
   render() {
