@@ -39,6 +39,18 @@ class RoomList extends Component {
     console.log(newList);
     this.setState({rooms: newList});
   }
+  editRoom(room){
+    //const edited = room.key;
+    const index = this.state.rooms.indexOf(room);
+    const editedRoom = this.state.rooms[index];
+    // to test that I found the correct index
+    console.log(editedRoom);
+    // to view the properties of the data at that index
+    console.log(this.state.rooms[index]);
+    const editedName = prompt("New Chat Room Name: ");
+    this.roomsRef.child(room.key).update({name: editedName});
+    this.setState({ rooms[index].name: editedName});
+  }
   render() {
     return (
       <section className="room-list">
@@ -46,6 +58,7 @@ class RoomList extends Component {
         {this.state.rooms.map( (room) =>
           <div className="room-data" key={room.key}>
             <span onClick={() => this.props.changeRoom(room)} style={room.key===this.props.activeRoom ? {textDecoration:"underline"} : {textDecoration:"none"}}>{room.name}</span>
+            <button className="room-edit" onClick={() => this.editRoom(room)}>Edit</button>
             <button className="room-delete" onClick={() => this.deleteRoom(room)}>Delete</button>
           </div>
           )}
