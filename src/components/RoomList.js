@@ -18,6 +18,24 @@ class RoomList extends Component {
       // concat() is used instead of push() so as not to directly alter state
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
+
+    this.roomsRef.on('child_changed', snapshot => {
+      // testing the Fb event data
+      console.log("child_changed: " + snapshot.val());
+      const newRooms = this.state.rooms;
+      const roomToChange = this.state.rooms.find(function(room) {
+        return room.key == snapshot.key;
+      });
+      // testing the changed room data
+      console.log(roomToChange);
+      const updatedRoom = snapshot.val();
+      updatedRoom.key = snapshot.key;
+      const roomIndex = newRooms.indexOf(updatedRoom);
+      console.log(roomIndex);
+      newRooms[roomIndex] = updatedRoom;
+      this.setState({ rooms: newRooms });
+
+    });
   }
   componentWillUnmount(){
 
@@ -42,6 +60,7 @@ class RoomList extends Component {
   editRoom(room){
     const index = this.state.rooms.indexOf(room);
     const editedRoom = this.state.rooms[index];
+
     // to test that I found the correct index
     console.log(editedRoom);
     // to view the properties of the data at that index
@@ -49,7 +68,11 @@ class RoomList extends Component {
     const editedName = prompt("New Chat Room Name: ");
     this.roomsRef.child(room.key).update({name: editedName});
     // THE LINE BELOW IS WRONG...
-    this.setState({ rooms[index].name: editedName});
+    // var newRooms = this.state.rooms;
+    // editedRoom.name = editedName;
+    // newRooms[index] = this.editedRoom;
+    // console.log(newRooms);
+    // this.setState({ rooms: newRooms });
   }
   render() {
     return (
