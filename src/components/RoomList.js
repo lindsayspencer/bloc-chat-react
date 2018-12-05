@@ -20,21 +20,16 @@ class RoomList extends Component {
     });
 
     this.roomsRef.on('child_changed', snapshot => {
-      // testing the Fb event data
-      console.log("child_changed: " + snapshot.val());
       const newRooms = this.state.rooms;
       const roomToChange = this.state.rooms.find(function(room) {
-        return room.key == snapshot.key;
+        return room.key === snapshot.key;
       });
-      // testing the changed room data
-      console.log(roomToChange);
-      const updatedRoom = snapshot.val();
-      updatedRoom.key = snapshot.key;
-      const roomIndex = newRooms.indexOf(updatedRoom);
+      const roomIndex = newRooms.indexOf(roomToChange);
       console.log(roomIndex);
+      const updatedRoom = snapshot.val();
       newRooms[roomIndex] = updatedRoom;
+      updatedRoom.key = snapshot.key;
       this.setState({ rooms: newRooms });
-
     });
   }
   componentWillUnmount(){
