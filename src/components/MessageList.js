@@ -17,6 +17,19 @@ class MessageList extends Component {
       // concat() is used instead of push() so as not to directly alter state
       this.setState({ messages: this.state.messages.concat(message) });
     });
+
+    this.messagesRef.on('child_changed', snapshot => {
+      const newMessages = this.state.messages;
+      const messageToChange = this.state.messages.find(function(message) {
+        return message.key === snapshot.key;
+      });
+      const messageIndex = newMessages.indexOf(messageToChange);
+      console.log(messageIndex);
+      const updatedMessage = snapshot.val();
+      newMessages[messageIndex] = updatedMessage;
+      updatedMessage.key = snapshot.key;
+      this.setState({ messages: newMessages });
+    });
   }
   handleMessageChange(e){
     this.setState({newMessage: e.target.value});
@@ -34,6 +47,16 @@ class MessageList extends Component {
     const newList = this.state.messages.filter(x => x.key !== deleted);
     console.log(newList);
     this.setState({messages: newList});
+  }
+  editMessage(message){
+    const index = this.state.messages.indexOf(message);
+    const editedMessage = this.state.messages[index];
+    // to test that I found the correct index
+    console.log(editedMessage);
+    // to view the properties of the data at that index
+    console.log(this.state.messages[index]);
+    const editedText = prompt("New Message Text: ");
+    this.messagesRef.child(message.key).update({content: editedText});
   }
   render(){
     return(
