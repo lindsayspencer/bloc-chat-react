@@ -30,3 +30,26 @@
     transform: rotate(360deg);
   }
 }
+
+/* styling for layout */
+
+header {
+  background-color: #005b4f;
+  color: #fff;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.user-name {
+  float: right;
+}
+
+.room-list {
+  float: left;
+  max-width: 300px;
+  background-color: #4ebaaa;
+  height: 100vh;
+}

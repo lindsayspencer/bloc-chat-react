@@ -39,9 +39,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <section className="user-name">
-          <User firebase={firebase} setUser={(user) => this.setUser(user)} currentUser={this.state.currentUser} />
-        </section>
+        <header>
+          <h1>YouOn?</h1>
+          <p id="signature"><i className="icon ion-logo-twitter"></i> @lindscatspencer • <a href="https://reactjs.org/">React.js</a> • <a href="https://firebase.google.com/">Firebase</a></p>
+          <section className="user-name">
+            <User firebase={firebase} setUser={(user) => this.setUser(user)} currentUser={this.state.currentUser} />
+          </section>
+        </header>
         <section className="room-list">
           <RoomList firebase={firebase} activeRoom={this.state.activeRoom} changeRoom={(room) => this.changeRoom(room)} />
         </section>
