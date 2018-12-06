@@ -27,6 +27,14 @@ class MessageList extends Component {
     this.messagesRef.push({ content: newText, username: this.props.currentUser.displayName, roomId: this.props.activeRoom, sentAt: this.props.firebase.database.ServerValue.TIMESTAMP });
     this.setState({ newMessage: ""});
   }
+  deleteMessage(message){
+    const deleted = message.key;
+    console.log(deleted);
+    this.messagesRef.child(deleted).remove();
+    const newList = this.state.messages.filter(x => x.key !== deleted);
+    console.log(newList);
+    this.setState({messages: newList});
+  }
   render(){
     return(
       <section className="message-list">
@@ -34,6 +42,8 @@ class MessageList extends Component {
         <div className="message-data" key={index}>
           <div>{message.content}</div>
           <div>Sent by {message.username} at {message.sentAt}</div>
+          <button className="message-edit" onClick={() => this.editMessage(message)}>Edit</button>
+          <button className="message-delete" onClick={() => this.deleteMessage(message)}>Delete</button>
           </div>)}
           <form onSubmit={(e) => this.createMessage(e)} className="message-create-form">
             <label for="message-create-text">New Message</label>

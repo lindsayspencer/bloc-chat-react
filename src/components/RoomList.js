@@ -55,19 +55,12 @@ class RoomList extends Component {
   editRoom(room){
     const index = this.state.rooms.indexOf(room);
     const editedRoom = this.state.rooms[index];
-
     // to test that I found the correct index
     console.log(editedRoom);
     // to view the properties of the data at that index
     console.log(this.state.rooms[index]);
     const editedName = prompt("New Chat Room Name: ");
     this.roomsRef.child(room.key).update({name: editedName});
-    // THE LINE BELOW IS WRONG...
-    // var newRooms = this.state.rooms;
-    // editedRoom.name = editedName;
-    // newRooms[index] = this.editedRoom;
-    // console.log(newRooms);
-    // this.setState({ rooms: newRooms });
   }
   render() {
     return (
